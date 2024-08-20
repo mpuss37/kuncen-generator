@@ -3,10 +3,6 @@ package org.master;
 public class Main {
     static PassGen passGen = new PassGen();
 
-    static void run() {
-        System.out.println(passGen.runPassGen());
-    }
-
     public static void main(String[] args) {
         if (args.length >= 1 && (args[0].equals("-l") || args[0].equals("--length"))) {
             //calling method for get specified length.
