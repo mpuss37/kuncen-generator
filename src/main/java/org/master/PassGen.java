@@ -45,7 +45,7 @@ public class PassGen {
                 finalText = randomText;
             } else {
                 finalText = randomText;
-                System.out.println("write upper or lower.");
+                System.out.println("write upper or lower on args[2].");
             }
         } catch (NullPointerException e) {
         }
