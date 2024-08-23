@@ -1,7 +1,3 @@
 Manifest-Version: 1.0
 Main-Class: org.master.Main
-Class-Path: opentest4j-1.3.0.jar junit-platform-commons-1.10.0.jar junit
- -jupiter-api-5.10.0.jar junit-jupiter-5.10.0.jar junit-jupiter-params-5
- .10.0.jar junit-jupiter-engine-5.10.0.jar junit-platform-engine-1.10.0.
- jar
 

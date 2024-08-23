@@ -1,27 +1,30 @@
 package org.master;
 
-import entity.User;
-
 import java.util.Random;
+
 
 public class PassGen {
     String ALPHABET = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz";
-    String lengthPass;
-    String randomText;
-    String finalText;
-    String number;
-    final String symbols = "~!@#$%^&*()_+{}|:\"<>?~!@#$%^&*()_+{}|:\"<>?";
-    String choice;
-    User user = new User();
+    String NUMBER = "012345678901234567890123456789";
+    String SYMBOLS = "\"<>?~!@#$%^&*_+{}|:";
+    Integer lengthPass = 8;
+    String randomText = "";
+    String finalText = "";
+    String choiceCase;
 
-    String setGenRandomText(String choice, int length) {
+    Random random = new Random();
+
+    String setRandomText(String randomText, String choice, Integer lengthPass) {
         StringBuilder sb = new StringBuilder();
-        Random random = new Random();
         //adding symbols and alphabet on one variabel
         if (choice.equalsIgnoreCase("symbols")) {
-            ALPHABET += symbols;
+            ALPHABET += SYMBOLS;
+        } else if (choice.equalsIgnoreCase("number")) {
+            ALPHABET += NUMBER;
+        } else {
+            ALPHABET = randomText;
         }
-        for (int i = 0; i < length; i++) {
+        for (int i = 0; i < lengthPass; i++) {
             // generate random index number
             int index = random.nextInt(ALPHABET.length());
             // get character specified by index
@@ -33,82 +36,19 @@ public class PassGen {
         return randomText;
     }
 
-    int setLengthPass() {
-        while (true) {
-            lengthPass = (user.setInput("input your length : "));
-            // using regular expression for search and validate the string
-            if (lengthPass.matches(".*[a-zA-Z]+.*")) {
-                System.out.println("input with number");
+    String setAdjustCase(String options, String randomText) {
+        try {
+            if (options.equalsIgnoreCase("upper")) {
+                finalText = randomText.toUpperCase();
+            } else if (options.equalsIgnoreCase("lower")) {
+                randomText = randomText.toLowerCase();
+                finalText = randomText;
             } else {
-                break;
+                finalText = randomText;
+                System.out.println("write upper or lower.");
             }
-        }
-        return Integer.valueOf(lengthPass);
-    }
-
-    String setSymbols() {
-        while (true) {
-            choice = (user.setInput("symbols (Y/N) : "));
-            // using regular expression for search and validate the string
-            if (choice.equalsIgnoreCase("Y")) {
-                break;
-            } else if (choice.equalsIgnoreCase("N")) {
-                break;
-            } else {
-                System.out.println("Input based on options (Y/N).");
-            }
-        }
-        return choice;
-    }
-
-    String adjustCase(String options, String randomText) {
-        if (options.equalsIgnoreCase("upper")) {
-            finalText = setUpperCase(randomText);
-        } else if (options.equalsIgnoreCase("lower")) {
-            finalText = setLowerCase(randomText);
+        } catch (NullPointerException e) {
         }
         return finalText;
     }
-
-    String setUpperCase(String randomText) {
-        randomText = randomText.toUpperCase();
-        return randomText;
-    }
-
-    String setLowerCase(String randomText) {
-        randomText = randomText.toLowerCase();
-        return randomText;
-    }
-
-//    String setUpperCase(String randomText) {
-//        while (true) {
-//            upperCase = user.setInput("uppercase (Y/N) : ");
-//            if (upperCase.equalsIgnoreCase("Y")) {
-//                randomText = randomText.toUpperCase();
-//                break;
-//            } else if (upperCase.equalsIgnoreCase("N")) {
-//                upperCase = "";
-//                break;
-//            } else {
-//                System.out.println("Input based on options (Y/N).");
-//            }
-//        }
-//        return randomText;
-//    }
-
-//    String setLowerCase(String randomText) {
-//        while (true) {
-//            lowerCase = user.setInput("lowercase (Y/N) : ");
-//            if (lowerCase.equalsIgnoreCase("Y")) {
-//                randomText = randomText.toLowerCase();
-//                break;
-//            } else if (lowerCase.equalsIgnoreCase("N")) {
-//                lowerCase = "";
-//                break;
-//            } else {
-//                System.out.println("Input based on options (Y/N).");
-//            }
-//        }
-//        return randomText;
-//    }
 }
