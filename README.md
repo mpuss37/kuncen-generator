@@ -44,7 +44,8 @@ To run the project, follow these steps:
 - **Running the Program**: After executing the script, you can run the program with the appropriate arguments. Example usage:
 
     ```sh
-    java -jar kuncen-gen.jar -option value
+    kuncen-gen [CUSTOM_OPTIONS]...[LENGTH]...[CASE]
+    Example: kuncen-gen -lcns '10' upper
     ```
 
 - **Optional**: If there are specific arguments or options supported, describe them here.
