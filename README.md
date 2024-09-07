@@ -1,6 +1,6 @@
 # Kuncen-Gen
 
-Kuncen-Gen is a project that [insert project description here]. This project provides [insert features or purpose of the project here].
+Kuncen-Gen is a project that provides a simple password generator implemented in Java. This project is designed to create strong, random passwords based on user-defined criteria, such as length and character types. It is an easy-to-use tool for generating secure passwords to enhance your security practices.
 
 ## Prerequisites
 
