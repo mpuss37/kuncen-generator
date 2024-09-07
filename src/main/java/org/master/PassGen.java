@@ -4,6 +4,8 @@ import java.util.Random;
 
 
 public class PassGen {
+    String vowels = "AaEeIiOoUu";
+    String consonants = "BbCcDdFfGgHhJjKkLlMmNnPpQqRrSsTtVvWwXxYyZz";
     String ALPHABET = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz";
     String NUMBER = "012345678901234567890123456789";
     String SYMBOLS = "\"<>?~!@#$%^&*_+{}|:";
@@ -31,6 +33,20 @@ public class PassGen {
             char randomChar = ALPHABET.charAt(index);
             // append the character to string builder
             sb.append(randomChar);
+        }
+        randomText = sb.toString();
+        return randomText;
+    }
+
+    String setRandomTextEasy(Integer lengthPass) {
+        StringBuilder sb = new StringBuilder();
+        //adding symbols and alphabet on one variabel
+        for (int i = 0; i < lengthPass; i++) {
+            if (i % 2 == 0) {
+                sb.append(consonants.charAt(random.nextInt(consonants.length())));
+            } else {
+                sb.append(vowels.charAt(random.nextInt(vowels.length())));
+            }
         }
         randomText = sb.toString();
         return randomText;

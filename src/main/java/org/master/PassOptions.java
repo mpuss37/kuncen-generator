@@ -1,5 +1,8 @@
 package org.master;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class PassOptions {
     PassGen passGen = new PassGen();
     String number;
@@ -11,15 +14,23 @@ public class PassOptions {
     bassed on indexing args if lower on zero / 0 will print error msg*/
     public void processArgs(String[] args) {
         try {
+            Set<Character> allowedChars = new HashSet<>();
+            for (char c : "lnsceh".toCharArray()) {
+                allowedChars.add(c);
+            }
+
             /*convert array args to string*/
             String args0 = args[0];
+            Character secondChar = args0.charAt(1);
             /* args zero / 0 start with char '-' */
-            if (args0.startsWith("-")) {
+            if (args0.startsWith("-") && allowedChars.contains(Character.toLowerCase(secondChar))) {
                 handleOptions(args, args0);
             } else {
                 System.out.println("kuncen-gen: missing operand\n" + "Try 'kuncen-gen -h or --help' for more information.");
             }
         } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Error: Invalid arguments. Try 'kuncen-gen -h or --help' for more information.");
+        } catch (StringIndexOutOfBoundsException e) {
             System.out.println("Error: Invalid arguments. Try 'kuncen-gen -h or --help' for more information.");
         }
     }
@@ -34,8 +45,12 @@ public class PassOptions {
         if (args0.contains("n") || args0.contains("number")) {
             handleNumberOption();
         }
-        if (args0.contains("u")) {
+        if (args0.contains("c") || args0.contains("case")) {
             handleAdjustCase(args);
+        }
+        if (args0.contains("e") || args0.contains("easy")) {
+            handleEasyOption();
+            choice = false;
         }
         if (args0.contains("h") || args0.contains("help")) {
             menu();
@@ -44,13 +59,6 @@ public class PassOptions {
         if (choice) {
             generatePassword();
         }
-    }
-
-    private void generatePassword() {
-        passGen.randomText += passGen.ALPHABET + symbol + number;
-        passGen.finalText = passGen.setRandomText(passGen.randomText, "", passGen.lengthPass);
-        passGen.choiceCase = passGen.setAdjustCase(adjustCase, passGen.finalText);
-        System.out.println(passGen.choiceCase);
     }
 
     private void handleLengthOption(String[] args) {
@@ -79,9 +87,16 @@ public class PassOptions {
 
     private void handleNumberOption() {
         number = passGen.setRandomText("", "number", passGen.lengthPass);
+        choice = true;
         if (number == null) {
             number = "";
         }
+    }
+
+
+    private void handleEasyOption() {
+        passGen.setRandomTextEasy(passGen.lengthPass);
+        generatePasswordEasy();
     }
 
     private void handleAdjustCase(String[] args) {
@@ -105,8 +120,21 @@ public class PassOptions {
         }
     }
 
+
+    private void generatePassword() {
+        passGen.randomText += passGen.ALPHABET + symbol + number;
+        passGen.finalText = passGen.setRandomText(passGen.randomText, "", passGen.lengthPass);
+        passGen.choiceCase = passGen.setAdjustCase(adjustCase, passGen.finalText);
+        System.out.println(passGen.choiceCase);
+    }
+
+    private void generatePasswordEasy() {
+        passGen.finalText = passGen.setRandomTextEasy(passGen.lengthPass);
+        System.out.println(passGen.finalText);
+    }
+
     public void menu() {
-        System.out.println("kuncen-gen (version 1.0, revision 1)");
+        System.out.println("kuncen-gen (version 1.1)");
         System.out.println("""
                 Usage:
                  kuncen-gen [CUSTOM_OPTIONS]...[LENGTH]...[CASE]\t
@@ -115,7 +143,7 @@ public class PassOptions {
                   -c, --case [upper/lower]     adjust case upper or lower.
                   -n, --numeric     with numeric digits.
                   -s, --symbols [custom_char]     with symbol can add custom char.
-                  -e, --easy [read/write]     easy to read or write pass (soon).
+                  -e, --easy [read and write]     easy to read or write pass.
                 """);
     }
 }
