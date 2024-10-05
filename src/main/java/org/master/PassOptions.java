@@ -71,7 +71,7 @@ public class PassOptions {
                 passGen.lengthPass = 8;
             }
         } catch (NumberFormatException e) {
-            System.out.println("input with numeric.");
+            System.out.println("input with numeric for length.");
             choice = true;
             passGen.lengthPass = 8;
         }
