@@ -10,6 +10,7 @@ public class PassGen {
     String NUMBER = "012345678901234567890123456789";
     String SYMBOLS = "\"<>?~!@#$%^&*_+{}|:";
     Integer lengthPass = 8;
+    Integer Amount = 5;
     String randomText = "";
     String finalText = "";
     String choiceCase;

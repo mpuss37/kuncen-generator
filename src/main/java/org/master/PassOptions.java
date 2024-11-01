@@ -15,7 +15,7 @@ public class PassOptions {
     public void processArgs(String[] args) {
         try {
             Set<Character> allowedChars = new HashSet<>();
-            for (char c : "lnsceh".toCharArray()) {
+            for (char c : "lnscqoeh".toCharArray()) {
                 allowedChars.add(c);
             }
 
@@ -48,6 +48,9 @@ public class PassOptions {
         if (args0.contains("c") || args0.contains("case")) {
             handleAdjustCase(args);
         }
+        if (args0.contains("a") || args0.contains("amount")) {
+            handleAdjustCase(args);
+        }
         if (args0.contains("e") || args0.contains("easy")) {
             handleEasyOption();
             choice = false;
@@ -57,13 +60,19 @@ public class PassOptions {
             choice = false;
         }
         if (choice) {
-            generatePassword();
+            for (int j = 0; j < 5; j++) {
+                StringBuilder passwordLine = new StringBuilder();
+                for (int i = 0; i < 5; i++) {
+                    passwordLine.append(generatePassword()).append(" ");
+                }
+                System.out.println(passwordLine.toString().trim());
+            }
         }
     }
 
     private void handleLengthOption(String[] args) {
         try {
-            if (args.length == 2 || args.length == 3) {
+            if (args.length == 2 || args.length == 3 || args.length == 4) {
                 passGen.lengthPass = Integer.parseInt(args[1]);
                 choice = true;
             } else {
@@ -71,9 +80,25 @@ public class PassOptions {
                 passGen.lengthPass = 8;
             }
         } catch (NumberFormatException e) {
-            System.out.println("input with numeric for length.");
+            System.out.println("Error: Invalid arguments. Try 'kuncen-gen -h or --help' ");
             choice = true;
             passGen.lengthPass = 8;
+        }
+    }
+
+    private void handleAmountOption(String[] args) {
+        try {
+            if (args.length == 2 || args.length == 3 || args.length == 4) {
+                passGen.Amount = Integer.parseInt(args[1]);
+                choice = true;
+            } else {
+                choice = true;
+                passGen.Amount = 5;
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("input with numeric for length.");
+            choice = true;
+            passGen.Amount = 5;
         }
     }
 
@@ -95,8 +120,14 @@ public class PassOptions {
 
 
     private void handleEasyOption() {
-        passGen.setRandomTextEasy(passGen.lengthPass);
-        generatePasswordEasy();
+//        passGen.setRandomTextEasy(passGen.lengthPass);
+        for (int j = 0; j < 5; j++) {
+            StringBuilder passwordLine = new StringBuilder();
+            for (int i = 0; i < 5; i++) {
+                passwordLine.append(generatePasswordEasy()).append(" ");
+            }
+            System.out.println(passwordLine.toString().trim());
+        }
     }
 
     private void handleAdjustCase(String[] args) {
@@ -121,16 +152,18 @@ public class PassOptions {
     }
 
 
-    private void generatePassword() {
-        passGen.randomText += passGen.ALPHABET + symbol + number;
+    String generatePassword() {
+        if (passGen.randomText == null || passGen.randomText.isEmpty()) {
+            passGen.randomText = passGen.ALPHABET + symbol + number;
+        }
         passGen.finalText = passGen.setRandomText(passGen.randomText, "", passGen.lengthPass);
         passGen.choiceCase = passGen.setAdjustCase(adjustCase, passGen.finalText);
-        System.out.println(passGen.choiceCase);
+        return passGen.choiceCase;
     }
 
-    private void generatePasswordEasy() {
+    String generatePasswordEasy() {
         passGen.finalText = passGen.setRandomTextEasy(passGen.lengthPass);
-        System.out.println(passGen.finalText);
+        return passGen.finalText;
     }
 
     public void menu() {
