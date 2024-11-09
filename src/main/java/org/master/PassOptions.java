@@ -47,13 +47,10 @@ public class PassOptions {
         }
         if (args0.contains("c") || args0.contains("case")) {
             handleAdjustCase(args);
-        }
-        if (args0.contains("a") || args0.contains("amount")) {
-            handleAdjustCase(args);
+            choice = false;
         }
         if (args0.contains("e") || args0.contains("easy")) {
             handleEasyOption();
-            choice = false;
         }
         if (args0.contains("h") || args0.contains("help")) {
             menu();
@@ -118,7 +115,6 @@ public class PassOptions {
         }
     }
 
-
     private void handleEasyOption() {
 //        passGen.setRandomTextEasy(passGen.lengthPass);
         for (int j = 0; j < 5; j++) {
@@ -163,7 +159,8 @@ public class PassOptions {
 
     String generatePasswordEasy() {
         passGen.finalText = passGen.setRandomTextEasy(passGen.lengthPass);
-        return passGen.finalText;
+        passGen.choiceCase = passGen.setAdjustCase(adjustCase, passGen.finalText);
+        return passGen.choiceCase;
     }
 
     public void menu() {
@@ -176,7 +173,7 @@ public class PassOptions {
                   -c, --case [upper/lower]     adjust case upper or lower.
                   -n, --numeric     with numeric digits.
                   -s, --symbols [custom_char]     with symbol can add custom char.
-                  -e, --easy [read and write]     easy to read or write pass.
+                  -e, --easy     easy to read or write, support (Length, case).
                 """);
     }
 }

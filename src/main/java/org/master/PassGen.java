@@ -1,5 +1,6 @@
 package org.master;
 
+import java.security.SecureRandom;
 import java.util.Random;
 
 
@@ -15,7 +16,7 @@ public class PassGen {
     String finalText = "";
     String choiceCase;
 
-    Random random = new Random();
+    SecureRandom random = new SecureRandom();
 
     String setRandomText(String randomText, String choice, Integer lengthPass) {
         StringBuilder sb = new StringBuilder();
