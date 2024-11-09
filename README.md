@@ -1,6 +1,8 @@
 # Kuncen-Gen
 
-Kuncen-Gen is a project that provides a simple password generator implemented in Java. This project is designed to create strong, random passwords based on user-defined criteria, such as length and character types. It is an easy-to-use tool for generating secure passwords to enhance your security practices.
+Kuncen-Gen is a project that provides a simple password generator implemented in Java. This project is designed to
+create strong, random passwords based on user-defined criteria, such as length and character types. It is an easy-to-use
+tool for generating secure passwords to enhance your security practices.
 
 ## Prerequisites
 
@@ -27,7 +29,8 @@ Before running this project, ensure you have the following installed:
 
 To run the project, follow these steps:
 
-1. Ensure that the shell script `kuncen-gen.sh` has execute permissions. You can grant execute permissions with the following command:
+1. Ensure that the shell script `kuncen-gen.sh` has execute permissions. You can grant execute permissions with the
+   following command:
 
     ```sh
     chmod +x kuncen-gen.sh
@@ -41,11 +44,18 @@ To run the project, follow these steps:
 
 ## Usage
 
-- **Running the Program**: After executing the script, you can run the program with the appropriate arguments. Example usage:
+- **Running the Program**: After executing the script, you can run the program with the appropriate arguments. Example
+  usage:
 
     ```sh
-    kuncen-gen [CUSTOM_OPTIONS]...[LENGTH]...[CASE]
+    kuncen-gen [CUSTOM_OPTIONS]...[LENGTH]...[CASE]        
     Example: kuncen-gen -lcns '10' upper
+      -l, --length [values]    specified length default 8.
+      -c, --case [upper/lower]     adjust case upper or lower.
+      -n, --numeric with numeric digits.
+      -s, --symbols [custom_char]     with symbol can add custom char.
+      -e, --easy easy to read or write, support (Length, case).
+
     ```
 
 - **Optional**: If there are specific arguments or options supported, describe them here.
